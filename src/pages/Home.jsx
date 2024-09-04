@@ -37,7 +37,7 @@ export default function Home() {
               </div>
                 <div className="flex justify-between mt-6 items-center">
                   <p className="text-lg font-medium text-black">Transaction History</p>
-                  <IoArrowForwardCircleSharp className="text-red-110 h-8 w-8"/>
+                 <Link to="wallet"><IoArrowForwardCircleSharp className="text-red-110 h-8 w-8"/></Link> 
                 </div>
               
               </div>

@@ -3,8 +3,6 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import RootLayout from "./layouts/RootLayout";
 import Login from "./pages/Login";
-import Statistics from "./pages/Statistics";
-import Contacts from "./pages/Contacts";
 import Invite from "./pages/Invite";
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
@@ -18,13 +16,17 @@ import TaskPayment from "./pages/TaskPayment";
 import Wallet from "./pages/Wallet";
 import TaskHistory from "./pages/TaskHistory";
 import InviteFriends from "./pages/InviteFriends";
+import Terms from "./pages/Terms";
+import Notifications from "./pages/Notifications";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
 
   return (
     <div className="font-poppins">
-        <Routes>
+      <Routes>
+        {/* Protected Routes */}
+        {authenticated ? (
           <Route path="/" element={<RootLayout />}>
             <Route index element={<Home />} />
             <Route path="vips" element={<Plans />} />
@@ -35,18 +37,20 @@ function App() {
             <Route path="wallet" element={<Wallet />} />
             <Route path="history" element={<TaskHistory />} />
             <Route path="invite-friends" element={<InviteFriends />} />
-            <Route path="requests" element={<Statistics />} />
-            <Route path="contacts" element={<Contacts />} />
-
+            <Route path="terms-conditions" element={<Terms />} />
+            <Route path="notifications" element={<Notifications />} />
           </Route>
-        </Routes>
+        ) : (
+          // Redirect to invite page if not authenticated
+          <Route path="*" element={<Navigate to="/invite" replace />} />
+        )}
 
-      <Routes>
-        <Route
-          path="/invite"
-          element={<Layout />}
-        >
-          <Route index element={<Invite />} />
+        {/* Invite Routes */}
+        <Route path="/invite" element={<Layout />}>
+          <Route
+            index
+            element={<Invite setAuthenticated={setAuthenticated} />}
+          />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="forget-password" element={<ForgetPassword />} />

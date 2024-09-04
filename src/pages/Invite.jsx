@@ -3,46 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase";
-import coin from "../assets/coin.png"
+import coin from "../assets/coin.png";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function Invite({ setAuthenticated }) {
   const navigate = useNavigate();
-  const emailRef = useRef();
-  const passwordRef = useRef();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-
-    try {
-      // Firebase authentication
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // Check if the user is an admin
-      const adminRef = doc(db, "admin", user.uid);
-      const adminDoc = await getDoc(adminRef);
-
-      if (adminDoc.exists()) {
-        setAuthenticated(true);
-        toast.success("Login successfully");
-        navigate("/");
-      } else {
-        toast.error("You are not authorized as an admin");
-      }
-    } catch (error) {
-      toast.error("Wrong credentials ");
-    }
+    setAuthenticated(true);
+    navigate("/");
   };
 
   return (
     <div className="">
       <Toaster />
       <div className="relative flex flex-wrap lg:items-center lg:justify-center">
-
         <div className="w-full px-4 py-12 sm:px-6  lg:w-1/2 lg:px-8 ">
           <div className="bg-white backdrop-blur-md rounded-lg max-w-lg mx-auto lg:px-8 lg:py-8 p-6 border border-red-130 flex flex-col justify-center items-center w-full">
             <img src={coin} alt="" className="w-[145px] h-[145px]" />
@@ -50,7 +26,6 @@ export default function Invite({ setAuthenticated }) {
               onSubmit={handleSubmit}
               className="mx-auto mb-0 mt-8 max-w-lg space-y-6 w-full"
             >
-
               <div>
                 <label className="font-medium">Invite</label>
                 <input
@@ -61,12 +36,12 @@ export default function Invite({ setAuthenticated }) {
               </div>
 
               <div className="flex items-center justify-end pt-20 flex-col gap-6">
-                <a
-                  href="/"
+                <button
+                 onClick={handleSubmit}
                   className="inline-block text-center rounded-xl bg-red-110 w-full px-6 py-4 font-medium text-white"
                 >
                   Join
-                </a>
+                </button>
                 <a
                   href="/invite/login"
                   className="inline-block text-center rounded-xl border border-red-110 w-full px-6 py-4 font-medium text-black"

@@ -47,7 +47,7 @@ export default function Sidebar() {
           }
           <ul className="space-y-4 font-normal text-sm">
             <li className='py-3 pb-6'>
-              <Link to='/dashboard' className="flex items-center justify-center py-2 px-5 rounded-lg">
+              <Link to='/invite' className="flex items-center justify-center py-2 px-5 rounded-lg">
                 <img src={logo} alt='....' className='object-cover drop-shadow-lg w-[140px]' />
               </Link>
             </li>
@@ -251,7 +251,7 @@ export default function Sidebar() {
               </NavLink>
 
             </li>
-            <li onClick={e => setShowMenue(pre => false)}>
+            {/* <li onClick={e => setShowMenue(pre => false)}>
               <NavLink
                 to="/team"
                 className={({ isActive }) =>
@@ -275,7 +275,7 @@ export default function Sidebar() {
                 )}
               </NavLink>
 
-            </li>
+            </li> */}
        
           </ul>
 
